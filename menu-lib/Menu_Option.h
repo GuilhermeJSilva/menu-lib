@@ -7,8 +7,9 @@
 
 #include <string>
 
+template<class T>
 class Menu_Option {
-private:
+protected:
     /**
      * Name to be displayed when printOption is called.
      */
@@ -17,22 +18,28 @@ private:
 public:
 
     /**
+    * Creates a Menu Option with a given name.
+    * @param name Name of the menu option.
+    */
+    Menu_Option(std::string n) : name(n) {}
+
+    /**
      * Returns the name of the option.
      * @return Name of the option.
      */
-    const std::string &getName() const;
+    const std::string &getName() const {
+        return name;
+    }
 
     /**
      * Changes the name of the Menu Option.
      * @param name New name for the menu option.
      */
-    void setName(const std::string &name);
+    void setName(const std::string &name) {
+        Menu_Option::name = name;
+    }
 
-    /**
-     * Creates a Menu Option with a given name.
-     * @param name Name of the menu option.
-     */
-    explicit Menu_Option(const std::string &name);
+
 };
 
 
