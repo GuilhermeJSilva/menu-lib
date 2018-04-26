@@ -1,5 +1,5 @@
 //
-// Created by guilherme on 15-04-2018.
+// Created by GuilhermeJSilva on 15-04-2018.
 //
 
 #ifndef MENU_LIB_MENU_H
@@ -137,7 +137,7 @@ public:
      * Prints the menu to the standard output.
      */
     void print() {
-        std::cout << std::endl << this->name;
+        std::cout << std::endl << this->name << std::endl;
         int i;
         for (i = 1; i <= sub_menus.size(); ++i) {
             if (i - 1 < sub_menus.size())
@@ -161,7 +161,7 @@ protected:
      * @return 0 if the option exists, -1 otherwise.
      */
     int pick_option(int option) {
-        long long max = sub_menus.size() + functions.size() - 1;
+        unsigned long max = sub_menus.size() + functions.size() - 1;
         if (option < 0 || option > max)
             return -1;
         if (option < sub_menus.size())

@@ -1,15 +1,17 @@
 #include <iostream>
 #include <string>
 #include "Menu.h"
-
+#include "ReadFunctions.h"
 
 int func(int *p) {
-    std::cout << "Function #1 with number " << *p << std::endl;
+    std::string str = read_string("String: ");
+    std::cout << "Function #1 with number " << str << std::endl;
     return 0;
 }
 
 int func2(int *p) {
-    std::cout << "Function #2 with number " << *p << std::endl;
+    int num = read_int("Int: ");
+    std::cout << "Function #2 with number " << num << std::endl;
     return 1;
 }
 

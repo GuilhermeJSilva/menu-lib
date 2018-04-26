@@ -1,5 +1,5 @@
 //
-// Created by guilherme on 15-04-2018.
+// Created by GuilhermeJSilva on 15-04-2018.
 //
 
 #ifndef MENU_LIB_MENU_OPTION_H
