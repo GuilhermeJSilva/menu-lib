@@ -13,8 +13,8 @@
 #include <iostream>
 #include <stddef.h>
 
-#include "Menu_Option.h"
-#include "Menu_Function.h"
+#include "Menu_Option.hpp"
+#include "Menu_Function.hpp"
 
 template<class T>
 class Menu : public Menu_Option<T> {
