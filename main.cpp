@@ -10,7 +10,7 @@ int func(int *p) {
 }
 
 int func2(int *p) {
-    int num = read_int("Int: ");
+    int num = read_int("Int: ", "Error try again", [](int i){ return i < 0 ;});
     std::cout << "Function #2 with number " << num << std::endl;
     return 0;
 }
@@ -26,7 +26,6 @@ int main() {
     Menu<int> *menu2 =  new Menu<int>("Test menu #2", test);
     menu1->add_sub_menu(menu2);
     menu2->add_menu_function(new Menu_Function<int>("Test function #1", func));
-
 
 
     menu.menu_loop();
