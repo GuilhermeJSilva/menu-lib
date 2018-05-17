@@ -130,7 +130,7 @@ public:
             print();
             option = getInt();
             ret = pick_option(option - 1);
-        } while ((option > 0 && option < functions.size() + sub_menus.size()) || (ret == this->level_of_menu));
+        } while ((option > 0 && option < functions.size() + sub_menus.size()) && (ret == this->level_of_menu));
     }
 
     /**
@@ -163,7 +163,7 @@ protected:
     int pick_option(int option) {
         unsigned long max = sub_menus.size() + functions.size() - 1;
         if (option < 0 || option > max)
-            return -1;
+            return this->level_of_menu;
         if (option < sub_menus.size())
             return this->sub_menus.at(option)->menu_loop();
         else
