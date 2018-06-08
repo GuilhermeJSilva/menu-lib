@@ -15,6 +15,10 @@
 
 #include "Menu_Option.hpp"
 #include "Menu_Function.hpp"
+#include "ReadFunctions.hpp"
+
+
+#define DEBUG_MENU false
 
 template<class T>
 class Menu : public Menu_Option<T> {
@@ -129,8 +133,12 @@ public:
         do {
             print();
             option = getInt();
-            ret = pick_option(option - 1);
-        } while ((option > 0 && option < functions.size() + sub_menus.size()) && (ret == this->level_of_menu));
+            option--;
+            ret = pick_option(option);
+            if(DEBUG_MENU)
+                printf("Choose option %d/%lu.\n Was called from the sub menu %d and has to stop at sub menu %d.\n", option + 1, functions.size() + sub_menus.size() + 1, level_of_menu, ret);
+        } while ((option >= 0 && option < functions.size() + sub_menus.size()) && (ret == this->level_of_menu));
+        return ret;
     }
 
     /**
@@ -161,13 +169,15 @@ protected:
      * @return 0 if the option exists, -1 otherwise.
      */
     int pick_option(int option) {
-        unsigned long max = sub_menus.size() + functions.size() - 1;
+        unsigned long max = sub_menus.size() + functions.size();
         if (option < 0 || option > max)
             return this->level_of_menu;
-        if (option < sub_menus.size())
+        else if (option < sub_menus.size())
             return this->sub_menus.at(option)->menu_loop();
+        else if (option < sub_menus.size() + functions.size())
+            return functions.at(option - sub_menus.size())->run(main_class, level_of_menu);
         else
-            return functions.at(option - sub_menus.size())->run(main_class);
+            return this->level_of_menu - 1;
 
     }
 
@@ -176,17 +186,22 @@ protected:
      * @return Read value.
      */
     int getInt() {
-        int read_value;
-        do {
+        T read_value;
+        std::cout << "Pick an option: " << std::endl;
+        std::cin >> read_value;
+        std::cin.ignore();
+
+        while (std::cin.fail() ||  !(read_value > 0 && read_value <= sub_menus.size() + 1 + functions.size())) {
+            std::cout << "Out of bounds, Try again." << std::endl;
             if (std::cin.fail()) {
                 std::cin.clear();
                 std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
             }
+            std::cout << "Pick an option: " << std::endl;
             std::cin >> read_value;
             std::cin.ignore();
-        } while (std::cin.fail() || !(read_value > 0 && read_value <= sub_menus.size() + 1 + functions.size()));
+        }
         return read_value;
-
     }
 };
 
